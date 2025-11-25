@@ -35,8 +35,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,6 +62,39 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="View\Model\Activity.cs">
+      <DependentUpon>CollegeBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View\Model\CollegeBD.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CollegeBD.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View\Model\CollegeBD.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CollegeBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View\Model\CollegeBD.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CollegeBD.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="View\Model\Direction.cs">
+      <DependentUpon>CollegeBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View\Model\Group.cs">
+      <DependentUpon>CollegeBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View\Model\Journal.cs">
+      <DependentUpon>CollegeBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View\Model\Special.cs">
+      <DependentUpon>CollegeBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View\Model\View_1.cs">
+      <DependentUpon>CollegeBD.tt</DependentUpon>
+    </Compile>
     <Compile Include="View\Page\AddActivityPage1.xaml.cs">
       <DependentUpon>AddActivityPage1.xaml</DependentUpon>
     </Compile>
@@ -74,8 +114,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="View\Window\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="View\Window\Window1.xaml.cs">
+      <DependentUpon>Window1.xaml</DependentUpon>
     </Compile>
     <Page Include="View\Page\AddActivityPage1.xaml">
       <SubType>Designer</SubType>
@@ -97,7 +137,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Window\MainWindow.xaml">
+    <Page Include="View\Window\Window1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -120,13 +160,36 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <EntityDeploy Include="View\Model\CollegeBD.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CollegeBD.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="View\Model\CollegeBD.edmx.diagram">
+      <DependentUpon>CollegeBD.edmx</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="View\Model\CollegeBD.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CollegeBD.Context.cs</LastGenOutput>
+      <DependentUpon>CollegeBD.edmx</DependentUpon>
+    </Content>
+    <Content Include="View\Model\CollegeBD.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CollegeBD.edmx</DependentUpon>
+      <LastGenOutput>CollegeBD.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

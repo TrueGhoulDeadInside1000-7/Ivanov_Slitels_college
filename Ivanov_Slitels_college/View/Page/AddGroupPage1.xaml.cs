@@ -50,5 +50,6 @@ namespace Ivanov_Slitels_college.View.Page
                 GroupTb.Text = "";
                 SpecialCmb.Text = "";
             }
+        }
     }
 }

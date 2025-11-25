@@ -1,0 +1,368 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище CollegeModel" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Activity">
+          <Key>
+            <PropertyRef Name="id_Activiry" />
+          </Key>
+          <Property Name="id_Activiry" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="id_Direction" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Direction">
+          <Key>
+            <PropertyRef Name="id_Direction" />
+          </Key>
+          <Property Name="id_Direction" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="id_Group" />
+          </Key>
+          <Property Name="id_Group" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="123" Nullable="false" />
+          <Property Name="id_Special" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Journal">
+          <Key>
+            <PropertyRef Name="id_journal" />
+          </Key>
+          <Property Name="id_journal" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateEvent" Type="date" Nullable="false" />
+          <Property Name="id_Group" Type="int" Nullable="false" />
+          <Property Name="id_Activity" Type="int" Nullable="false" />
+          <Property Name="Mark" Type="decimal" Precision="3" Scale="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Special">
+          <Key>
+            <PropertyRef Name="Id_Special" />
+          </Key>
+          <Property Name="Id_Special" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="123" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "College.dbo.View_1" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="View_1">
+          <Key>
+            <PropertyRef Name="DateEvent" />
+            <PropertyRef Name="Mark" />
+            <PropertyRef Name="id_Group" />
+            <PropertyRef Name="Expr1" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="DateEvent" Type="date" Nullable="false" />
+          <Property Name="Mark" Type="decimal" Precision="3" Scale="1" Nullable="false" />
+          <Property Name="id_Group" Type="int" Nullable="false" />
+          <Property Name="Expr1" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="123" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Activity_Direction">
+          <End Role="Direction" Type="Self.Direction" Multiplicity="1" />
+          <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Direction">
+              <PropertyRef Name="id_Direction" />
+            </Principal>
+            <Dependent Role="Activity">
+              <PropertyRef Name="id_Direction" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Group_Special">
+          <End Role="Special" Type="Self.Special" Multiplicity="1" />
+          <End Role="Group" Type="Self.Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Special">
+              <PropertyRef Name="Id_Special" />
+            </Principal>
+            <Dependent Role="Group">
+              <PropertyRef Name="id_Special" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Journal_Activity">
+          <End Role="Activity" Type="Self.Activity" Multiplicity="1" />
+          <End Role="Journal" Type="Self.Journal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Activity">
+              <PropertyRef Name="id_Activiry" />
+            </Principal>
+            <Dependent Role="Journal">
+              <PropertyRef Name="id_Activity" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Journal_Group">
+          <End Role="Group" Type="Self.Group" Multiplicity="1" />
+          <End Role="Journal" Type="Self.Journal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="id_Group" />
+            </Principal>
+            <Dependent Role="Journal">
+              <PropertyRef Name="id_Group" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище CollegeModelContainer">
+          <EntitySet Name="Activity" EntityType="Self.Activity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Direction" EntityType="Self.Direction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Group" EntityType="Self.Group" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Journal" EntityType="Self.Journal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Special" EntityType="Self.Special" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="View_1" EntityType="Self.View_1" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[View_1].[DateEvent] AS [DateEvent], 
+[View_1].[Mark] AS [Mark], 
+[View_1].[id_Group] AS [id_Group], 
+[View_1].[Expr1] AS [Expr1], 
+[View_1].[Name] AS [Name]
+FROM [dbo].[View_1] AS [View_1]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Activity_Direction" Association="Self.FK_Activity_Direction">
+            <End Role="Direction" EntitySet="Direction" />
+            <End Role="Activity" EntitySet="Activity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Group_Special" Association="Self.FK_Group_Special">
+            <End Role="Special" EntitySet="Special" />
+            <End Role="Group" EntitySet="Group" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Journal_Activity" Association="Self.FK_Journal_Activity">
+            <End Role="Activity" EntitySet="Activity" />
+            <End Role="Journal" EntitySet="Journal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Journal_Group" Association="Self.FK_Journal_Group">
+            <End Role="Group" EntitySet="Group" />
+            <End Role="Journal" EntitySet="Journal" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CollegeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Activity">
+          <Key>
+            <PropertyRef Name="id_Activiry" />
+          </Key>
+          <Property Name="id_Activiry" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="id_Direction" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Direction" Relationship="Self.FK_Activity_Direction" FromRole="Activity" ToRole="Direction" />
+          <NavigationProperty Name="Journal" Relationship="Self.FK_Journal_Activity" FromRole="Activity" ToRole="Journal" />
+        </EntityType>
+        <EntityType Name="Direction">
+          <Key>
+            <PropertyRef Name="id_Direction" />
+          </Key>
+          <Property Name="id_Direction" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Activity" Relationship="Self.FK_Activity_Direction" FromRole="Direction" ToRole="Activity" />
+        </EntityType>
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="id_Group" />
+          </Key>
+          <Property Name="id_Group" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="123" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="id_Special" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Special" Relationship="Self.FK_Group_Special" FromRole="Group" ToRole="Special" />
+          <NavigationProperty Name="Journal" Relationship="Self.FK_Journal_Group" FromRole="Group" ToRole="Journal" />
+        </EntityType>
+        <EntityType Name="Journal">
+          <Key>
+            <PropertyRef Name="id_journal" />
+          </Key>
+          <Property Name="id_journal" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateEvent" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="id_Group" Type="Int32" Nullable="false" />
+          <Property Name="id_Activity" Type="Int32" Nullable="false" />
+          <Property Name="Mark" Type="Decimal" Precision="3" Scale="1" Nullable="false" />
+          <NavigationProperty Name="Activity" Relationship="Self.FK_Journal_Activity" FromRole="Journal" ToRole="Activity" />
+          <NavigationProperty Name="Group" Relationship="Self.FK_Journal_Group" FromRole="Journal" ToRole="Group" />
+        </EntityType>
+        <EntityType Name="Special">
+          <Key>
+            <PropertyRef Name="Id_Special" />
+          </Key>
+          <Property Name="Id_Special" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="123" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Group" Relationship="Self.FK_Group_Special" FromRole="Special" ToRole="Group" />
+        </EntityType>
+        <EntityType Name="View_1">
+          <Key>
+            <PropertyRef Name="DateEvent" />
+            <PropertyRef Name="Mark" />
+            <PropertyRef Name="id_Group" />
+            <PropertyRef Name="Expr1" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="DateEvent" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Mark" Type="Decimal" Precision="3" Scale="1" Nullable="false" />
+          <Property Name="id_Group" Type="Int32" Nullable="false" />
+          <Property Name="Expr1" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="123" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Activity_Direction">
+          <End Role="Direction" Type="Self.Direction" Multiplicity="1" />
+          <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Direction">
+              <PropertyRef Name="id_Direction" />
+            </Principal>
+            <Dependent Role="Activity">
+              <PropertyRef Name="id_Direction" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Journal_Activity">
+          <End Role="Activity" Type="Self.Activity" Multiplicity="1" />
+          <End Role="Journal" Type="Self.Journal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Activity">
+              <PropertyRef Name="id_Activiry" />
+            </Principal>
+            <Dependent Role="Journal">
+              <PropertyRef Name="id_Activity" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Group_Special">
+          <End Role="Special" Type="Self.Special" Multiplicity="1" />
+          <End Role="Group" Type="Self.Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Special">
+              <PropertyRef Name="Id_Special" />
+            </Principal>
+            <Dependent Role="Group">
+              <PropertyRef Name="id_Special" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Journal_Group">
+          <End Role="Group" Type="Self.Group" Multiplicity="1" />
+          <End Role="Journal" Type="Self.Journal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="id_Group" />
+            </Principal>
+            <Dependent Role="Journal">
+              <PropertyRef Name="id_Group" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CollegeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Activity" EntityType="Self.Activity" />
+          <EntitySet Name="Direction" EntityType="Self.Direction" />
+          <EntitySet Name="Group" EntityType="Self.Group" />
+          <EntitySet Name="Journal" EntityType="Self.Journal" />
+          <EntitySet Name="Special" EntityType="Self.Special" />
+          <EntitySet Name="View_1" EntityType="Self.View_1" />
+          <AssociationSet Name="FK_Activity_Direction" Association="Self.FK_Activity_Direction">
+            <End Role="Direction" EntitySet="Direction" />
+            <End Role="Activity" EntitySet="Activity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Journal_Activity" Association="Self.FK_Journal_Activity">
+            <End Role="Activity" EntitySet="Activity" />
+            <End Role="Journal" EntitySet="Journal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Group_Special" Association="Self.FK_Group_Special">
+            <End Role="Special" EntitySet="Special" />
+            <End Role="Group" EntitySet="Group" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Journal_Group" Association="Self.FK_Journal_Group">
+            <End Role="Group" EntitySet="Group" />
+            <End Role="Journal" EntitySet="Journal" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище CollegeModelContainer" CdmEntityContainer="CollegeEntities">
+          <EntitySetMapping Name="Activity">
+            <EntityTypeMapping TypeName="CollegeModel.Activity">
+              <MappingFragment StoreEntitySet="Activity">
+                <ScalarProperty Name="id_Activiry" ColumnName="id_Activiry" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="id_Direction" ColumnName="id_Direction" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Direction">
+            <EntityTypeMapping TypeName="CollegeModel.Direction">
+              <MappingFragment StoreEntitySet="Direction">
+                <ScalarProperty Name="id_Direction" ColumnName="id_Direction" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Group">
+            <EntityTypeMapping TypeName="CollegeModel.Group">
+              <MappingFragment StoreEntitySet="Group">
+                <ScalarProperty Name="id_Group" ColumnName="id_Group" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="id_Special" ColumnName="id_Special" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Journal">
+            <EntityTypeMapping TypeName="CollegeModel.Journal">
+              <MappingFragment StoreEntitySet="Journal">
+                <ScalarProperty Name="id_journal" ColumnName="id_journal" />
+                <ScalarProperty Name="DateEvent" ColumnName="DateEvent" />
+                <ScalarProperty Name="id_Group" ColumnName="id_Group" />
+                <ScalarProperty Name="id_Activity" ColumnName="id_Activity" />
+                <ScalarProperty Name="Mark" ColumnName="Mark" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Special">
+            <EntityTypeMapping TypeName="CollegeModel.Special">
+              <MappingFragment StoreEntitySet="Special">
+                <ScalarProperty Name="Id_Special" ColumnName="Id_Special" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_1">
+            <EntityTypeMapping TypeName="CollegeModel.View_1">
+              <MappingFragment StoreEntitySet="View_1">
+                <ScalarProperty Name="DateEvent" ColumnName="DateEvent" />
+                <ScalarProperty Name="Mark" ColumnName="Mark" />
+                <ScalarProperty Name="id_Group" ColumnName="id_Group" />
+                <ScalarProperty Name="Expr1" ColumnName="Expr1" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

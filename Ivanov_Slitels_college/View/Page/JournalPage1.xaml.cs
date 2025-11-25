@@ -68,5 +68,6 @@ namespace Ivanov_Slitels_college.View.Page
 
                 JournalLv.ItemsSource = App.context.Journal.ToList();
             }
+        }
     }
 }

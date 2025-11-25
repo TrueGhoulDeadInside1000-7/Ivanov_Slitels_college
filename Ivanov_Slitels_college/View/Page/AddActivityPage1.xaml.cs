@@ -46,5 +46,6 @@ namespace Ivanov_Slitels_college.View.Page
                 App.context.SaveChanges();
                 MessageBox.Show("Активность добавлена");
             }
+        }
     }
 }
