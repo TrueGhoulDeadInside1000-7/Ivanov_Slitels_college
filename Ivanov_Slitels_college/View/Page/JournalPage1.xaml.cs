@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Ivanov_Slitels_college.View.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,7 +19,7 @@ namespace Ivanov_Slitels_college.View.Page
     /// <summary>
     /// Логика взаимодействия для JournalPage1.xaml
     /// </summary>
-    public partial class JournalPage1 : Page
+    public partial class JournalPage1
     {
         public JournalPage1()
         {

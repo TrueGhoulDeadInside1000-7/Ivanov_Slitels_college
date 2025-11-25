@@ -18,11 +18,16 @@ namespace Ivanov_Slitels_college.View.Page
     /// <summary>
     /// Логика взаимодействия для ReportPage2.xaml
     /// </summary>
-    public partial class ReportPage2 : Page
+    public partial class ReportPage2
     {
         public ReportPage2()
         {
             InitializeComponent();
+        }
+
+        private void ChooseBtn_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ivanov_Slitels_college.View.Model;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,6 @@ namespace Ivanov_Slitels_college
     /// </summary>
     public partial class App : Application
     {
+        public static CollegeEntities context = new CollegeEntities();
     }
 }
